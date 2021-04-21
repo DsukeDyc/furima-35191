@@ -61,7 +61,7 @@
 | house_number    | string     | null: false                   |
 | building_name   | string     |                               |
 | order           | references | null: false, foreign_key:true |
-| tel             | integer    | null: false                   |
+| tel             | string     | null: false                   |
 
 ### Association
 
