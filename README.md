@@ -1,24 +1,69 @@
-# README
+# テーブル設計
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## users テーブル
 
-Things you may want to cover:
+| Column             | Type   | Options  |
+| ------------------ | ------ | -------- |
+| nickname           | string | NOT NULL |
+| email              | string | NOT NULL |
+| password           | string | NOT NULL |
+| last_name          | string | NOT NULL |
+| first_name         | string | NOT NULL |
+| last_name_reading  | string | NOT NULL |
+| first_name_reading | string | NOT NULL |
+| birth              | date   | NOT NULL |
 
-* Ruby version
+### Association
 
-* System dependencies
+- has_many : items
+- has_many : orders
 
-* Configuration
+## items テーブル
 
-* Database creation
+| Column         | Type       | Options  |
+| -------------- | ---------- |----------|
+| name           | string     | NOT NULL |
+| description    | text       | NOT NULL |
+| type           | string     | NOT NULL |
+| condition      | text       | NOT NULL |
+| shipping_cost  | string     | NOT NULL |
+| ShipRegion     | string     | NOT NULL |
+| ShipDate       | string     | NOT NULL |
+| price          | integer    | NOT NULL |
+| user           | references |          |
+| saler_id       | integer    |          |
 
-* Database initialization
+### Association
 
-* How to run the test suite
+- belongs_to : users
+- has_one : orders
 
-* Services (job queues, cache servers, search engines, etc.)
+## Orders テーブル
 
-* Deployment instructions
+| Column       | Type    | Options  |
+| -------------| ------- | -------- |
+| name         | string  | NOT NULL |
+| price        | integer | NOT NULL |
+| shipping_cost| string  | NOT NULL |
+| buyer_id     | integer |
 
-* ...
+### Association
+
+- belongs_to : users
+- belongs_to : items
+- has_one : address_book
+
+## Address_book テーブル
+
+| Column       | Type    | Options     |
+| -------------| ------- | ----------- |
+| postal_code  | string  | NOT NULL    |
+| prefecture   | integer | NOT NULL    |
+| city         | string  | NOT NULL    |
+| house_number | string  | NOT NULL    |
+| building_name| string  | UNIQUE TRUE |
+| house_number | string  | NOT NULL    |
+
+### Association
+
+- belongs_to : orders 
