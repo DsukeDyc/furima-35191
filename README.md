@@ -24,33 +24,31 @@
 | -------------- | ---------- |----------|
 | name           | string     | NOT NULL |
 | description    | text       | NOT NULL |
-| type           | string     | NOT NULL |
-| condition      | text       | NOT NULL |
-| shipping_cost  | string     | NOT NULL |
-| ShipRegion     | string     | NOT NULL |
-| ShipDate       | string     | NOT NULL |
+| type           | integer    | NOT NULL |
+| condition      | integer    | NOT NULL |
+| shipping_cost  | integer    | NOT NULL |
+| ShipRegion     | integer    | NOT NULL |
+| ShipDate       | integer    | NOT NULL |
 | price          | integer    | NOT NULL |
 | user           | references |          |
 | saler_id       | integer    |          |
 
 ### Association
 
-- belongs_to : users
-- has_one : orders
+- belongs_to : user
+- has_one : order
 
 ## Orders テーブル
 
-| Column       | Type    | Options  |
-| -------------| ------- | -------- |
-| name         | string  | NOT NULL |
-| price        | integer | NOT NULL |
-| shipping_cost| string  | NOT NULL |
-| buyer_id     | integer |
+| Column  | Type    | Options  |
+| --------| ------- | -------- |
+| user_id | integer | NOT NULL |
+| item_id | integer | NOT NULL |
 
 ### Association
 
-- belongs_to : users
-- belongs_to : items
+- belongs_to : user
+- belongs_to : item
 - has_one : address_book
 
 ## Address_book テーブル
@@ -61,9 +59,9 @@
 | prefecture   | integer | NOT NULL    |
 | city         | string  | NOT NULL    |
 | house_number | string  | NOT NULL    |
-| building_name| string  | UNIQUE TRUE |
+| building_name| string  |             |
 | house_number | string  | NOT NULL    |
 
 ### Association
 
-- belongs_to : orders 
+- belongs_to : order
