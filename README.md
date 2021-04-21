@@ -2,16 +2,16 @@
 
 ## users テーブル
 
-| Column             | Type   | Options      |
-| ------------------ | ------ | -------------|
-| nickname           | string | NOT NULL     |
-| email              | string | UNIQUE TRUE  |
-| encrypted_password | string | NOT NULL     |
-| last_name          | string | NOT NULL     |
-| first_name         | string | NOT NULL     |
-| last_name_reading  | string | NOT NULL     |
-| first_name_reading | string | NOT NULL     |
-| birth              | date   | NOT NULL     |
+| Column             | Type   | Options                  |
+| ------------------ | ------ | -------------------------|
+| nickname           | string | null: false              |
+| email              | string | null: false, unique: true|
+| encrypted_password | string | null: false              |
+| last_name          | string | null: false              |
+| first_name         | string | null: false              |
+| last_name_reading  | string | null: false              |
+| first_name_reading | string | null: false              |
+| birth              | date   | null: false              |
 
 ### Association
 
@@ -21,15 +21,15 @@
 ## items テーブル
 
 | Column           | Type       | Options         |
-| ---------------- | ---------- |-------------- --|
-| name             | string     | NOT NUL         |
-| description      | text       | NOT NULL        |
-| type_id          | integer    | NOT NULL        |
-| condition_id     | integer    | NOT NULL        |
-| shipping_cost_id | integer    | NOT NULL        |
-| prefecture_id    | integer    | NOT NULL        |
-| shipdate_id      | integer    | NOT NULL        |
-| price            | integer    | NOT NULL        |
+| ---------------- | ---------- |-----------------|
+| name             | string     | null: false     |
+| description      | text       | null: false     |
+| type_id          | integer    | null: false     |
+| condition_id     | integer    | null: false     |
+| shipping_cost_id | integer    | null: false     |
+| prefecture_id    | integer    | null: false     |
+| shipdate_id      | integer    | null: false     |
+| price            | integer    | null: false     |
 | user             | references | foreign_key:true|
 
 
@@ -40,10 +40,11 @@
 
 ## Orders テーブル
 
-| Column  | Type       | Options                   |
-| --------| ---------- | --------------------------|
-| user_id | references |NOT NULL, foreign_key:true |
-| item_id | references |NOT NULL, foreign_key:true |
+| Column          | Type       | Options                      |
+| ----------------| -----------| -----------------------------|
+| user            | references |null: false, foreign_key:true |
+| item            | references |null: false, foreign_key:true |
+| item_id         | references |null: false, foreign_key:true |
 
 ### Association
 
@@ -51,17 +52,16 @@
 - belongs_to : item
 - has_one : address_book
 
-## Address_book テーブル
+## Address_books テーブル
 
-| Column          | Type       | Options                    |
-| ----------------| ---------- | -------------------------- |
-| postal_code_id  | string     | NOT NULL                   |
-| prefecture_id   | integer    | NOT NULL                   |
-| city            | string     | NOT NULL                   |
-| house_number    | string     | NOT NULL                   |
+| Column          | Type       |Options                     |
+| ----------------| ---------- |----------------------------|
+| postal_code     | string     | null: false                |
+| prefecture_id   | integer    | null: false                |
+| city            | string     | null: false                |
+| house_number    | string     | null: false                |
 | building_name   | string     |                            |
-| user_id         | references | NOT NULL, foreign_key:true |
-| item_id         | references | NOT NULL, foreign_key:true |
+| order_id        | references | NOT NULL, foreign_key:true |
 
 ### Association
 
