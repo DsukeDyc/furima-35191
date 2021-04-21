@@ -53,14 +53,15 @@
 
 ## Address_books テーブル
 
-| Column          | Type       |Options                     |
-| ----------------| ---------- |----------------------------|
-| postal_code     | string     | null: false                |
-| prefecture_id   | integer    | null: false                |
-| city            | string     | null: false                |
-| house_number    | string     | null: false                |
-| building_name   | string     |                            |
-| order           | references | NOT NULL, foreign_key:true |
+| Column          | Type       |Options                        |
+| ----------------| ---------- |-------------------------------|
+| postal_code     | string     | null: false                   |
+| prefecture_id   | integer    | null: false                   |
+| city            | string     | null: false                   |
+| house_number    | string     | null: false                   |
+| building_name   | string     |                               |
+| order           | references | null: false, foreign_key:true |
+| tel             | integer    | null: false                   |
 
 ### Association
 
