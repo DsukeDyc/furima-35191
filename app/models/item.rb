@@ -3,7 +3,11 @@ class Item < ApplicationRecord
   has_one_attached :image
 
   extend ActiveHash::Associations::ActiveRecordExtensions
-  belongs_to :type_id, :condition_id, :shipping_cost_id, :prefecture_id, :shipdate_id
+  belongs_to :type
+  belongs_to :condition
+  belongs_to :shipping_cost
+  belongs_to :prefecture
+  belongs_to :shipdate
 
   with_options presence: true do
     validates :name
