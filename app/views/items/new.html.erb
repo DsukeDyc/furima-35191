@@ -1,7 +1,6 @@
 <div class="items-sell-contents">
   <header class="items-sell-header">
     <%= link_to image_tag('furima-logo-color.png' , size: '185x50'), "/" %>
-
   </header>
   <div class="items-sell-main">
     <h2 class="items-sell-title">商品の情報を入力</h2>
@@ -69,7 +68,7 @@
           配送料の負担
           <span class="indispensable">必須</span>
         </div>
-        <%= f.collection_select(:shipping_cost_id, Shipping_cost.all, :id, :name, {} ,{class:"select-box", id:"item-shipping-fee-status"}) %>
+        <%= f.collection_select(:shipping_cost_id, ShippingCost.all, :id, :name, {} ,{class:"select-box", id:"item-shipping-fee-status"}) %>
         <div class="weight-bold-text">
           発送元の地域
           <span class="indispensable">必須</span>
@@ -111,6 +110,7 @@
             <span id='profit'></span>円
         </div>
         </span>
+       <script src="item_price.js"></script>
       </div>
     </div>
     <%# /販売価格 %>
