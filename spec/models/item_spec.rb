@@ -2,7 +2,9 @@ require 'rails_helper'
 
 RSpec.describe Item, type: :model do
   before do
-    @item = FactoryBot.build(:item)
+    @user = FactoryBot.create(:user)
+    @item = FactoryBot.build(:item, user_id: @user.id)
+
   end
 
   describe '商品の保存' do
@@ -12,8 +14,8 @@ RSpec.describe Item, type: :model do
       end
     end
     context '商品の保存ができない場合' do
-      it '画像が空では登録できない' do
-        @item.image = ''
+      it '画像がないと登録できない' do
+        @item.image = nil
         @item.valid?
         expect(@item.errors.full_messages).to include("Image can't be blank")
       end
@@ -28,32 +30,32 @@ RSpec.describe Item, type: :model do
         expect(@item.errors.full_messages).to include("Description can't be blank")
       end
       it 'カテゴリーが空では登録できない' do
-        @item.type = ''
+        @item.type = nil
         @item.valid?
         expect(@item.errors.full_messages).to include("Type can't be blank")
       end
       it '状態が空では登録できない' do
-        @item.condition = ''
+        @item.condition = nil
         @item.valid?
         expect(@item.errors.full_messages).to include("Condition can't be blank")
       end
       it '配送料の負担が空では登録できない' do
-        @item.shipping_cost = ''
+        @item.shipping_cost = nil
         @item.valid?
-        expect(@item.errors.full_messages).to include("Shipping_cost can't be blank")
+        expect(@item.errors.full_messages).to include("Shipping cost can't be blank")
       end
       it '発送元の地域が空では登録できない' do
-        @item.prefecture = ''
+        @item.prefecture = nil
         @item.valid?
         expect(@item.errors.full_messages).to include("Prefecture can't be blank")
       end
       it '発送までの日数が空では登録できない' do
-        @item.shipdate = ''
+        @item.shipdate = nil
         @item.valid?
         expect(@item.errors.full_messages).to include("Shipdate can't be blank")
       end
       it '販売価格が空では登録できない' do
-        @item.price = ''
+        @item.price = nil
         @item.valid?
         expect(@item.errors.full_messages).to include("Price can't be blank")
       end
@@ -62,15 +64,15 @@ RSpec.describe Item, type: :model do
         @item.valid?
         expect(@item.errors.full_messages).to include("Price is invalid")
       end
-      it '販売価格が1,000,000円を超過すると保存できないこと' do 
-        @item.price = 1000000
+      it '販売価格が9,999,999円を超過すると保存できないこと' do 
+        @item.price = 10000000
         @item.valid?
         expect(@item.errors.full_messages).to include("Price is invalid")
       end
       it 'userが紐づいていないと保存できないこと' do
         @item.user_id = nil
         @item.valid?
-        expect(@item.errors.full_messages).to include("User can't be blank")
+        expect(@item.errors.full_messages).to include("User must exist")
       end
     end
   end
