@@ -43,10 +43,10 @@ Style/EmptyMethod:
 Style/ClassAndModuleChildren:
   Enabled: false
 
-Style/AscilComments:
+Style/AsciiComments:
   Enabled: false
 
-Style/Documation:
+Style/Documentation:
   Enabled: false
 
 Style/SymbolArray:

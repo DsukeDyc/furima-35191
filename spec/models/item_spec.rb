@@ -4,7 +4,6 @@ RSpec.describe Item, type: :model do
   before do
     @user = FactoryBot.create(:user)
     @item = FactoryBot.build(:item, user_id: @user.id)
-
   end
 
   describe '商品の保存' do
@@ -62,17 +61,17 @@ RSpec.describe Item, type: :model do
       it '販売価格が全角英数混合では登録できない' do
         @item.price = '000Ａ-Ｚ'
         @item.valid?
-        expect(@item.errors.full_messages).to include("Price is invalid")
+        expect(@item.errors.full_messages).to include('Price is invalid')
       end
-      it '販売価格が9,999,999円を超過すると保存できないこと' do 
-        @item.price = 10000000
+      it '販売価格が9,999,999円を超過すると保存できないこと' do
+        @item.price = 10_000_000
         @item.valid?
-        expect(@item.errors.full_messages).to include("Price is invalid")
+        expect(@item.errors.full_messages).to include('Price is invalid')
       end
       it 'userが紐づいていないと保存できないこと' do
         @item.user_id = nil
         @item.valid?
-        expect(@item.errors.full_messages).to include("User must exist")
+        expect(@item.errors.full_messages).to include('User must exist')
       end
     end
   end
