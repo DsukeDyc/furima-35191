@@ -2,8 +2,7 @@ require 'rails_helper'
 
 RSpec.describe Item, type: :model do
   before do
-    @user = FactoryBot.create(:user)
-    @item = FactoryBot.build(:item, user_id: @user.id)
+    @item = FactoryBot.build(:item)
   end
 
   describe '商品の保存' do
@@ -53,6 +52,31 @@ RSpec.describe Item, type: :model do
         @item.valid?
         expect(@item.errors.full_messages).to include("Shipdate can't be blank")
       end
+      it 'カテゴリーが---では登録できない' do
+        @item.type_id = 1
+        @item.valid?
+        expect(@item.errors.full_messages).to include("Type must be other than 1")
+      end
+      it '状態が---では登録できない' do
+        @item.condition_id = 1
+        @item.valid?
+        expect(@item.errors.full_messages).to include("Condition must be other than 1")
+      end
+      it '配送料の負担が---では登録できない' do
+        @item.shipping_cost_id = 1
+        @item.valid?
+        expect(@item.errors.full_messages).to include("Shipping cost must be other than 1")
+      end
+      it '発送元の地域が---では登録できない' do
+        @item.prefecture_id = 1
+        @item.valid?
+        expect(@item.errors.full_messages).to include("Prefecture must be other than 1")
+      end
+      it '発送までの日数が---では登録できない' do
+        @item.shipdate_id = 1
+        @item.valid?
+        expect(@item.errors.full_messages).to include("Shipdate must be other than 1")
+      end
       it '販売価格が空では登録できない' do
         @item.price = nil
         @item.valid?
@@ -66,6 +90,12 @@ RSpec.describe Item, type: :model do
       it '販売価格が9,999,999円を超過すると保存できないこと' do
         @item.price = 10_000_000
         @item.valid?
+        expect(@item.errors.full_messages).to include('Price is invalid')
+      end
+      it '299円以下では登録ができないこと' do
+        @item.price = 299
+        @item.valid?
+        binding.pry
         expect(@item.errors.full_messages).to include('Price is invalid')
       end
       it 'userが紐づいていないと保存できないこと' do
