@@ -95,7 +95,6 @@ RSpec.describe Item, type: :model do
       it '299円以下では登録ができないこと' do
         @item.price = 299
         @item.valid?
-        binding.pry
         expect(@item.errors.full_messages).to include('Price is invalid')
       end
       it 'userが紐づいていないと保存できないこと' do

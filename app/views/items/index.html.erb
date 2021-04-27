@@ -180,11 +180,7 @@
   </div>
   <%# /商品一覧 %>
 </div>
-<%# if user_signed_in? %>
 <%= link_to(new_item_path, class: 'purchase-btn') do %>
-<%# else %>
-<%#= link_to(new_user_session, class: 'purchase-btn') do %>
-<%# end %>
   <span class='purchase-btn-text'>出品する</span>
   <%= image_tag 'icon_camera.png' , size: '185x50' ,class: "purchase-btn-icon" %>
 <% end %>
