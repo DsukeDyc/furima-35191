@@ -23,7 +23,7 @@ RSpec.describe AddressBook, type: :model do
         expect(@address_book.errors.full_messages).to include("Postal code can't be blank")
       end
       it 'postal_codeが半角のハイフンを含んだ正しい形式でないと保存できないこと' do
-        @address_book.postal_code ='1234567'
+        @address_book.postal_code = '1234567'
         @address_book.valid?
         expect(@address_book.errors.full_messages).to include('Postal code is invalid. Include hypten(-)')
       end

@@ -2,7 +2,7 @@ class Item < ApplicationRecord
   belongs_to :user
   has_one_attached :image
   has_one :order
-  #has_one :order_address
+  # has_one :order_address
 
   extend ActiveHash::Associations::ActiveRecordExtensions
   belongs_to :type
