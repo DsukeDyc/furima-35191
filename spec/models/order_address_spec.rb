@@ -3,7 +3,6 @@ require 'rails_helper'
 RSpec.describe OrderAddress, type: :model do
   describe '購入者の配送先の保存' do
     before do
-      # order = FactoryBot.create(:order)
       user = FactoryBot.create(:user)
       item = FactoryBot.create(:item)
       @order_address = FactoryBot.build(:order_address, user_id: user.id, item_id: item.id)
@@ -60,7 +59,12 @@ RSpec.describe OrderAddress, type: :model do
         expect(@order_address.errors.full_messages).to include('Tel is invalid.')
       end
       it 'telが11桁でないと保存できないこと' do
-        @order_address.tel = '0000000000'
+        @order_address.tel = '000000000000'
+        @order_address.valid?
+        expect(@order_address.errors.full_messages).to include('Tel is invalid.')
+      end
+      it 'telが数字でないと保存できないこと' do
+        @order_address.tel = '00000aaaaa'
         @order_address.valid?
         expect(@order_address.errors.full_messages).to include('Tel is invalid.')
       end
@@ -78,6 +82,16 @@ RSpec.describe OrderAddress, type: :model do
         @order_address.token = nil
         @order_address.valid?
         expect(@order_address.errors.full_messages).to include("Token can't be blank")
+      end
+      it 'user_idが空では登録できないこと' do
+        @order_address.user_id = nil
+        @order_address.valid?
+        expect(@order_address.errors.full_messages).to include("User can't be blank")
+      end
+      it 'item_idが空では登録できないこと' do
+        @order_address.item_id = nil
+        @order_address.valid?
+        expect(@order_address.errors.full_messages).to include("Item can't be blank")
       end
     end
   end
