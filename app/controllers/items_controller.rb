@@ -47,8 +47,7 @@ class ItemsController < ApplicationController
   end
 
   def contributor_confirmation
-   return redirect_to root_path unless current_user == @item.user
-   return redirect_to root_path if @item.order.present?
+    redirect_to root_path if current_user == @item.user || @item.order.present?
   end
 
   def set_item
