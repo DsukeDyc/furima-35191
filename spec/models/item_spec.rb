@@ -2,7 +2,9 @@ require 'rails_helper'
 
 RSpec.describe Item, type: :model do
   before do
-    @item = FactoryBot.build(:item)
+    # item = FactoryBot.build(:item)
+    user = FactoryBot.create(:user)
+    @item = FactoryBot.build(:item, user_id: user.id)
   end
 
   describe '商品の保存' do
@@ -98,7 +100,7 @@ RSpec.describe Item, type: :model do
         expect(@item.errors.full_messages).to include('Price is invalid')
       end
       it 'userが紐づいていないと保存できないこと' do
-        @item.user_id = nil
+        @item.user = nil
         @item.valid?
         expect(@item.errors.full_messages).to include('User must exist')
       end
