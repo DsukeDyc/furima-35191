@@ -6,7 +6,7 @@ RSpec.describe OrderAddress, type: :model do
       user = FactoryBot.create(:user)
       item = FactoryBot.create(:item)
       @order_address = FactoryBot.build(:order_address, user_id: user.id, item_id: item.id)
-      sleep(1)
+      sleep(0.1)
     end
 
     context '内容に問題ない場合' do
@@ -41,12 +41,12 @@ RSpec.describe OrderAddress, type: :model do
       it 'cityが空では保存できないこと' do
         @order_address.city = ''
         @order_address.valid?
-        expect(@order_address.errors.full_messages).to include
+        expect(@order_address.errors.full_messages).to include("City can't be blank")
       end
       it 'house_numberが空では保存できないこと' do
         @order_address.house_number = ''
         @order_address.valid?
-        expect(@order_address.errors.full_messages).to include
+        expect(@order_address.errors.full_messages).to include("House number can't be blank")
       end
       it 'telが空では保存できないこと' do
         @order_address.tel = nil
